@@ -48,6 +48,7 @@ void coin_monitor_graph(int runMin = -1, int runMax = -1) {
 	//mgYield->Add(gDummy);
 
 	mgYield->Draw("AP");
+	mgYield->GetYaxis()->SetLimits(0, 2.0);
 	mgYield->GetXaxis()->SetLimits(runMin, runMax);
 	mgYield->GetXaxis()->SetTitle("Run Number");
 	mgYield->GetYaxis()->SetTitle("Yield per mC");
