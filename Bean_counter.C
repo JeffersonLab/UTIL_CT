@@ -81,9 +81,9 @@ void Bean_counter(Int_t runNumber, Int_t targ){
   if (targ == 1) {                
     tt->SetBranchAddress("P.kin.secondary.emiss", &pEm);                           
   }
-  else if (targ == 2){
-    tt->SetBranchAddress("P.kin.secondary.emiss_nuc", &pEm);                          }                     
-
+  else if (targ == 2) {
+    tt->SetBranchAddress("P.kin.secondary.emiss_nuc", &pEm);                          
+  }                     
   tt->SetBranchAddress("P.kin.secondary.pmiss", &pPm);                                                    
                                                                                                               
   tt->SetBranchAddress("P.hod.goodstarttime", &PhodStatus);                                              
@@ -192,7 +192,7 @@ void Bean_counter(Int_t runNumber, Int_t targ){
       }
       else if (targ == 2)
       {
-	if (sqrt(pPm*pPm) < 0.6)
+	if (sqrt(pPm*pPm) < 0.4)
         {
         h_hdelta->Fill(hdelta);
         h_hxptar->Fill(HgtrPh);
