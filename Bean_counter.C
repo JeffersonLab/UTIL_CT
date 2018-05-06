@@ -161,13 +161,21 @@ void Bean_counter(Int_t runNumber, Int_t targ){
     tt->GetEntry(kk);
     if (kk % 50000 == 0) cout << kk*100/nentriesD << "   % of data done" << endl;
       evtType = tt->GetLeaf("fEvtHdr.fEvtType")->GetValue(); 
-    if (pbeta>0.6 && pbeta<1.4 && hbeta>0.8 && hbeta<1.2 && hcernpe>0. && hcaletot >0.6 && hcaletot<2.0 && PhodStatus == 1 && HhodStatus ==1 && hdelta > -10 && hdelta < 10 && pdelta > -15 && pdelta < 15 && pcernpe < 0.1) 
-    { 
+      if (
+	  pbeta>0.6 && pbeta<1.5  
+	  && hbeta>0.8 && hbeta<1.2 
+	  && hcernpe>0. 
+          && hcaletot >0.6 && hcaletot<2.0 
+          && PhodStatus == 1 && HhodStatus ==1  
+          && hdelta > -10 && hdelta < 10 && pdelta > -15 && pdelta < 15 
+          && pcernpe < 0.1
+          ) 
+      { 
 	DeltaHMSpathLength = 12.462*HgtrTh + 0.1138*HgtrTh*HgtrX - 0.0154*HgtrX - 72.292*HgtrTh*HgtrTh - 0.0000544*HgtrX*HgtrX - 116.52*HgtrPh*HgtrPh;               
       PgtrBetaCalc = PgtrP/sqrt(PgtrP*PgtrP + SHMSpartMass*SHMSpartMass);        
       HgtrBetaCalc = HgtrP/sqrt(HgtrP*HgtrP + HMSpartMass*HMSpartMass);          
-      SHMScoinCorr = SHMScentralPathLen / (speedOfLight*PgtrBetaCalc) + (SHMSpathLength - SHMScentralPathLen) / speedOfLight*PgtrBetaCalc + (PhodoStartTimeMean - PhodfpHitsTime);                                                                   
-      HMScoinCorr = HMScentralPathLen / (speedOfLight*HgtrBetaCalc) + DeltaHMSpathLength / speedOfLight*HgtrBetaCalc + (HhodoStartTimeMean - HhodfpHitsTime);      
+      SHMScoinCorr = SHMScentralPathLen / (speedOfLight*PgtrBetaCalc) + (SHMSpathLength - SHMScentralPathLen) / (speedOfLight*PgtrBetaCalc) + (PhodoStartTimeMean - PhodfpHitsTime);                                                                   
+      HMScoinCorr = HMScentralPathLen / (speedOfLight*HgtrBetaCalc) + DeltaHMSpathLength / (speedOfLight*HgtrBetaCalc) + (HhodoStartTimeMean - HhodfpHitsTime);      
       SHMScorrCoinTimeROC1 = (TcoinpTRIG1_ROC1_tdcTimeRaw*0.1 - SHMScoinCorr) - (TcoinpTRIG4_ROC1_tdcTimeRaw*0.1 - HMScoinCorr) - pOffset; // 0.1 to convert to ns 
       SHMScorrCoinTimeROC2 = (TcoinpTRIG1_ROC2_tdcTimeRaw*0.1 - SHMScoinCorr) - (TcoinpTRIG4_ROC2_tdcTimeRaw*0.1 - HMScoinCorr) - pOffset;                         
       h1PcointimeROC1->Fill(SHMScorrCoinTimeROC1);                               
@@ -192,7 +200,7 @@ void Bean_counter(Int_t runNumber, Int_t targ){
       }
       else if (targ == 2)
       {
-	if (sqrt(pPm*pPm) < 0.4)
+       if (sqrt(pPm*pPm) < 0.4)
         {
         h_hdelta->Fill(hdelta);
         h_hxptar->Fill(HgtrPh);
